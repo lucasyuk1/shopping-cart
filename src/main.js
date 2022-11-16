@@ -15,10 +15,10 @@ const mainContainer = document.querySelector('.container');
 
 const loadingProducts = () => {
   const loadTxt = document.createElement('p');
-  loadTxt.innerHTML = 'Carregando...'
+  loadTxt.innerHTML = 'Carregando...';
   loadTxt.classList.add('loading');
   mainContainer.prepend(loadTxt);
-}
+};
 
 const removeLoading = () => {
   const ldTxt = document.querySelector('.loading');
@@ -38,6 +38,5 @@ const appendProducts = () => {
     productSection.appendChild(createProductElement({ id, title, thumbnail, price }));
   });
 };
-
 
 appendProducts();
