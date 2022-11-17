@@ -33,10 +33,15 @@ if (!waitID.id) {
 }
 
 const appendProducts = () => {
-  arrayProduct.forEach((e) => {
-    const { id, title, thumbnail, price } = e;
-    productSection.appendChild(createProductElement({ id, title, thumbnail, price }));
-  });
+  try {
+    arrayProduct.forEach((e) => {
+      const { id, title, thumbnail, price } = e;
+      productSection.appendChild(createProductElement({ id, title, thumbnail, price }));
+    });
+  } catch (error) {
+    const errosMsg = 'Algum erro ocorreu, recarregue a página e tente novamente';
+    productSection.innerHTML = `<span class="error">${errosMsg}</span>`;
+  }
 };
 
 appendProducts();
