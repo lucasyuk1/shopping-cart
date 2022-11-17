@@ -4,28 +4,26 @@ import product from './mocks/product';
 
 // implemente seus testes aqui
 describe('Teste a função fetchProduct', () => {
-  it('fetchProduct é uma função', () => {
-    expect(typeof fetchProduct).toBe('function');
+  it('fetchProductsList é uma função', async () => {
+    await expect(typeof fetchProduct).toBe('function');
   });
 
-  it('fetch é chamado ao executar fetchProduct', async () => {
+  it('Verifica se fetch é chamado', async () => {
     await fetchProduct('MLB1405519561');
     expect(fetch).toHaveBeenCalled();
   });
 
-  it('fetch é chamado com o endpoint correto ao executar fetchProduct', async () => {
+  it('Verifica se o endpoint correto é utilizado`', async () => {
     await fetchProduct('MLB1405519561');
-    expect(fetch).toHaveBeenCalledWith('https://api.mercadolibre.com/items/MLB1405519561')
+    expect(fetch).toHaveBeenCalledWith('https://api.mercadolibre.com/items/MLB1405519561');
   });
 
-  it('Ao executar fetchProduct com o argumento "MLB1405519561" retorna um objeto igual ao "product"', async () => {
-    const res = await fetchProduct('MLB1405519561');
-    expect(res).toEqual(product);
+  it('Verifica se o retorno é o objeto esperado', async () => {
+    await expect(fetchProduct('MLB1405519561')).resolves.toMatchObject(product);
   });
 
-  it('Ao executar fetchProduct sem o argumento retorna um erro com "ID não informado"', async () => {
-    const res = await fetchProduct;
-    const erro = 'ID não informado';
-    expect(res).rejects.toThrow(erro);
+  it('Verifica se chamando a função sem pârametro, retorna o erro esperado', async () => {
+    await expect(fetchProduct()).rejects.toThrowError('ID não informado');
   });
+
 });
