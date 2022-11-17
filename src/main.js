@@ -5,13 +5,9 @@ import './style.css';
 
 const productSection = document.querySelector('.products');
 
-document.querySelector('.cep-button').addEventListener('click', searchCep);
-
-const apiPC = await fetchProductsList('computador');
-
-const arrayProduct = apiPC;
-
 const mainContainer = document.querySelector('.container');
+
+document.querySelector('.cep-button').addEventListener('click', searchCep);
 
 const loadingProducts = () => {
   const loadTxt = document.createElement('p');
@@ -25,15 +21,14 @@ const removeLoading = () => {
   ldTxt.remove();
 };
 
-loadingProducts();
-
-const waitID = await fetchProductsList('computador');
-if (!waitID.id) {
-  removeLoading();
-}
-
-const appendProducts = () => {
+const appendProducts = async () => {
+  loadingProducts();
   try {
+    const apiPC = await fetchProductsList('computador');
+    if (!apiPC.id) {
+      removeLoading();
+    }
+    const arrayProduct = apiPC;
     arrayProduct.forEach((e) => {
       const { id, title, thumbnail, price } = e;
       productSection.appendChild(createProductElement({ id, title, thumbnail, price }));
