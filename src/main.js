@@ -1,6 +1,7 @@
 import { searchCep } from './helpers/cepFunctions';
 import { fetchProductsList } from './helpers/fetchFunctions';
-import { createProductElement } from './helpers/shopFunctions';
+import { createProductElement, addToCart } from './helpers/shopFunctions';
+import { getSavedCartIDs } from './helpers/cartFunctions';
 import './style.css';
 
 const productSection = document.querySelector('.products');
@@ -39,4 +40,13 @@ const appendProducts = async () => {
   }
 };
 
+const loadCart = () => {
+  const loadCartStorage = getSavedCartIDs();
+  localStorage.clear();
+  loadCartStorage.forEach((id) => {
+    addToCart(id);
+  });
+};
+
+loadCart();
 appendProducts();
